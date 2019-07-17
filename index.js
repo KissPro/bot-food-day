@@ -36,12 +36,15 @@ app.post('/webhook', function(req, res) {
           var text = message.message.text;
           if(text == 'hi' || text == "hello")
           {
-            sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + 'Xin Chào');
-            sendMessage(senderId, "Bạn tên là gì?");
+            sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + 'Xin Chào', + "Bạn tên gì?");
           }
           else if (text == 'hạnh' || text == "Hạnh")
           {
-            sendMessage(senderId, "Bạn có phải là con Heo không :)");
+            sendMessage(senderId, "Bạn có phải là con Heo không?");
+          }
+          else if (text == 'có' || text == "*đúng*")
+          {
+            sendMessage(senderId, "Bạn có phải là con Heo không?");
           }
           else{sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
         }
