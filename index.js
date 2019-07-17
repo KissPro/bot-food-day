@@ -36,9 +36,14 @@ app.post('/webhook', function(req, res) {
           var text = message.message.text;
           if(text == 'hi' || text == "hello")
           {
-            sendMessage(senderId, "Trung Quân's Bot: " + 'Xin Chào');
+            sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + 'Xin Chào');
+            sendMessage(senderId, "Bạn tên là gì?");
           }
-          else{sendMessage(senderId, "Trung Quân's Bot: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
+          else if (text == 'hạnh' || text == "Hạnh")
+          {
+            sendMessage(senderId, "Bạn có phải là con Heo không :)");
+          }
+          else{sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống, chúng tôi sẽ cập nhật sớm nhất.");}
         }
       }
     }
@@ -63,3 +68,4 @@ function sendMessage(senderId, message) {
     }
   });
 }
+
