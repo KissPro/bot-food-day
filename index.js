@@ -51,7 +51,7 @@ app.post('/webhook', function(req, res) {
           }
           else if (text == 'không' || text == "sai")
           {
-            sendMessage(senderId, "Bạn có phải là con Lợn không?");
+            sendMessage(senderId, message.postback.text);
           }
           else{sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống.");}
         }
