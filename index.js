@@ -5,6 +5,9 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
 var request = require('request');
+
+var images = require('./pics');
+
 var router = express();
 var app = express();
 app.use(logger('dev'));
@@ -51,6 +54,10 @@ app.post('/webhook', function(req, res) {
             sendMessage(senderId, "Bạn có phải là con Lợn không?");
           }
           else{sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống.");}
+        }
+        else
+        {
+          handlePostback(senderId, message.postback);
         }
       }
     }
@@ -117,6 +124,8 @@ function getImage(type, sender_id){
     console.log(users);
     return images[type][user_type_count];
 }
+
+
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
     let response;
@@ -138,25 +147,25 @@ function handlePostback(sender_psid, received_postback) {
     // Get the payload for the postback
     let payload = received_postback.payload;
 
+    response = imageTemplate('cats', sender_psid);
+    callSendAPI(sender_psid, response, function(){
+        callSendAPI(sender_psid, askTemplate('Show me more'));
+    });
+
     // Set the response based on the postback payload
-    if (payload === 'CAT_PICS') {
-        response = imageTemplate('cats', sender_psid);
-        callSendAPI(sender_psid, response, function(){
-            callSendAPI(sender_psid, askTemplate('Show me more'));
-        });
-    } else if (payload === 'DOG_PICS') {
-        response = imageTemplate('dogs', sender_psid);
-        callSendAPI(sender_psid, response, function(){
-            callSendAPI(sender_psid, askTemplate('Show me more'));
-        });
-    } else if(payload === 'GET_STARTED'){
-        response = askTemplate('Are you a Cat or Dog Person?');
-        callSendAPI(sender_psid, response);
-    }
+    // if (payload === 'CAT_PICS') {
+    //     response = imageTemplate('cats', sender_psid);
+    //     callSendAPI(sender_psid, response, function(){
+    //         callSendAPI(sender_psid, askTemplate('Show me more'));
+    //     });
+    // } else if (payload === 'DOG_PICS') {
+    //     response = imageTemplate('dogs', sender_psid);
+    //     callSendAPI(sender_psid, response, function(){
+    //         callSendAPI(sender_psid, askTemplate('Show me more'));
+    //     });
+    // } else if(payload === 'GET_STARTED'){
+    //     response = askTemplate('Are you a Cat or Dog Person?');
+    //     callSendAPI(sender_psid, response);
+    // }
     // Send the message to acknowledge the postback
 }
-
-
-
-
-
