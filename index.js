@@ -33,6 +33,7 @@ app.post('/webhook', function(req, res) {
     var messaging = entry.messaging;
     for (var message of messaging) {
       var senderId = message.sender.id;
+      var webhook_event = entry.messaging[0];
       if (message.message) {
         // Nếu người dùng gửi tin nhắn đến
         if (message.message.text) {
@@ -58,7 +59,7 @@ app.post('/webhook', function(req, res) {
       }
       else
       {
-        handlePostback(senderId, message.postback);
+        handlePostback(senderId, webhook_event.postback);
       }
     }
   }
