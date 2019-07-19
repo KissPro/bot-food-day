@@ -53,15 +53,12 @@ app.post('/webhook', function(req, res) {
           {
             sendMessage(senderId, "Bạn có phải là con Lợn không?");
           }
-          // else{sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống.");}
-          else{
-            handlePostback(senderId, message.postback);  
-          }
+          else{sendMessage(senderId, "Hoàng Đẹp Trai's Bot: " + "Xin lỗi, câu hỏi của bạn chưa có trong hệ thống.");}
         }
-        else
-        {
-          handlePostback(senderId, message.postback);
-        }
+      }
+      else
+      {
+        handlePostback(senderId, message.postback);
       }
     }
   }
