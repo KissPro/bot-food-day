@@ -35,7 +35,6 @@ app.post('/webhook', function(req, res) {
     for (var message of messaging) {
       var senderId = message.sender.id;
       var webhook_event = entry.messaging[0];
-      handlePostback(senderId, webhook_event.postback);
       if (message.message) {
         // Nếu người dùng gửi tin nhắn đến
         if (message.message.text) {
@@ -173,6 +172,30 @@ function handlePostback(sender_psid, received_postback) {
     // Send the message to acknowledge the postback
 }
 
+function callSendAPI(sender_psid, response, cb = null) {
+  // Construct the message body
+  let request_body = {
+      "recipient": {
+          "id": sender_psid
+      },
+      "message": response
+  };
+  // Send the HTTP request to the Messenger Platform
+  request({
+      "uri": "https://graph.facebook.com/v2.6/me/messages",
+      "qs": { "access_token": "EAAMxUXl9d1MBAAZCsKgaeRnvus0DQ8ks3aUzwZBwtcZAAc7XRVc1Xpkx1ZAfZA8EHvaJClZCKpg21MqyB2q6n4aLuuvhP0JGE6Lp9PiwNosfrBAqXZB6RdgFhbaDWqjgLFO5ZAI9s8BeQXH1l4tux2cgfnR8MXWCL6dn6SE5HEgvviL1nIZByJzBZC" },
+      "method": "POST",
+      "json": request_body
+  }, (err, res, body) => {
+      if (!err) {
+          if(cb){
+              cb();
+          }
+      } else {
+          console.error("Unable to send message:" + err);
+      }
+  });
+}
 
 
 
