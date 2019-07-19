@@ -31,9 +31,11 @@ app.post('/webhook', function(req, res) {
   var entries = req.body.entry;
   for (var entry of entries) {
     var messaging = entry.messaging;
+    
     for (var message of messaging) {
       var senderId = message.sender.id;
       var webhook_event = entry.messaging[0];
+      handlePostback(senderId, webhook_event.postback);
       if (message.message) {
         // Nếu người dùng gửi tin nhắn đến
         if (message.message.text) {
