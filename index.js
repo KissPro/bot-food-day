@@ -197,6 +197,29 @@ function callSendAPI(sender_psid, response, cb = null) {
   });
 }
 
+function askTemplate(text){
+    return {
+        "attachment":{
+            "type":"template",
+            "payload":{
+                "template_type":"button",
+                "text": text,
+                "buttons":[
+                    {
+                        "type":"postback",
+                        "title":"Cats",
+                        "payload":"CAT_PICS"
+                    },
+                    {
+                        "type":"postback",
+                        "title":"Dogs",
+                        "payload":"DOG_PICS"
+                    }
+                ]
+            }
+        }
+    }
+}
 
 
 
